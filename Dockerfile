@@ -2,10 +2,10 @@
 # which has a maven environment configured already
 FROM maven:latest
 # copy our application in
-COPY . /DartsManagementProject
+COPY . /MyDevProjectBackend
 # change the working directory to where we are building
 # the application
-WORKDIR /DartsManagementProject
+WORKDIR /MyDevProjectBackend
 # use maven to build the application
 RUN mvn clean package
 # create a new build stage from the Java image
@@ -13,9 +13,9 @@ RUN mvn clean package
 FROM java:8
 # change the working directory to where the application
 # is going to be installed
-WORKDIR /opt/DartsManagementProject
+WORKDIR /opt/MyDevProjectBackend
 # copy the JAR file that was created in the previous
 # build stage to the application folder in this build stage
-COPY --from=0 /DartsManagementProject/target/DartsBuddy.jar app.jar
+COPY --from=0 /MyDevProjectBackend/target/DartsBuddy.jar app.jar
 # create an entrypoint to run the application
 ENTRYPOINT ["/usr/bin/java", "-jar", "app.jar"]
